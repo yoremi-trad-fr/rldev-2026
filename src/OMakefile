@@ -1,6 +1,6 @@
 #
-#  RLDev: RealLive-compatible development toolkit
-#  Copyright (C) 2004-2006 Haeleth
+#  Kprl: RealLive archiver and disassembler
+#  Copyright (C) 2006 Haeleth
 #  Revised 2009-2011 by Richard 23
 #
 #  This program is free software; you can redistribute it and/or modify it under
@@ -18,72 +18,38 @@
 #  Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 
-OCAMLFLAGS = -warn-error Asxyz -cc $(if $(equal $(CXX),gcc),g++,$(CXX))
-USE_OCAMLFIND = true
+PROGRAM = $(EXEDIR)/kprl
 
-if $(defined-env DEBUG)
-  echo "Debug mode"
-  NATIVE_ENABLED = false
-  BYTE_ENABLED = true
-  OCAMLFLAGS += -g -custom
+FILES []=
+  app
+# rltypes
+  disassembler
+  archiver
+  main
+
+# RLFILES = rlTypes rlParser rlLexer
+# GENFILES = rlParser.mli rlParser.ml rlLexer.ml
+# GENERATED = $(GENFILES) 
+# OCamlGeneratedFiles($(GENFILES))
+# OCamlLibrary(rl, $(RLFILES))
+
+if $(ENABLE_WIN32)
+  OCAML_LINK_FLAGS += -cclib -lversion
   export
 
-if $(not $(defined-env VERBOSE))
-  OMakeFlags(-S --progress)
-  export
+OCamlProgram($(PROGRAM), $(FILES))
 
-if $(not $(file-exists ../bin))
-  mkdir ../bin
-
-EXEDIR = $(dir ../bin)
-
-.INCLUDE: config.inc
-  if $(not $(file-exists config.inc))
-    ./configure
-
-OCAMLLEX += -q
-
-# Generate a description of the parsing tables and a report on conflicts resulting 
-# from ambiguities in the grammar. The description is put in file grammar.output.
-
-OCAMLYACC += -v
-
-.PHONY: all clean distclean
-
-# build libraries
-.SUBDIRS: common
-
-OCAMLINCLUDES += $(dir common)
-INCLUDES += $(dir common)
-OCAML_LIBS = $(file $(addprefix common/,optpp rlcmp rlkfn appconfig))
-OCAML_CLIBS = $(file common/rlprims)
-
-# build programs
-
-OCAMLPACKS = bigarray unix extlib ulex
-
-PROGRAMS = rlc kprl
-if $(ENABLE_VACONV)
-  PROGRAMS += vaconv
-  export
-if $(ENABLE_RLXML)
-  PROGRAMS += rlxml
-  export
-if $(file-exists cvtkpacres)
-  # If you don't use Kpac, you won't miss this utility.  
-  # If you do need to convert Kpac resources, let me know and I'll send you a 
-  # version with CvtKpacRes included.
-  PROGRAMS += cvtkpacres
-  export
-
-version_file = $(file VERSION)
-
-.SUBDIRS: $(PROGRAMS) docsrc
-
-clean:
-  $(RM) *.omc
-
-distclean: clean
-  $(RM) $(add-wrapper $(EXEDIR)/,$(EXE),$(PROGRAMS)) common/config.cfg config.inc
+# Meta-rules:
 
 .DEFAULT: all
+.PHONY: all clean
+
+all: $(PROGRAM)$(EXE)
+
+# clean:
+#   $(RM) OMakefile.omc $(GENERATED) \
+#     $(addsuffixes .cmi .cmo .cmx $(EXT_OBJ), $(RLFILES) $(FILES)) \
+#     $(addsuffixes .cma .cmxa $(EXT_LIB),rl)
+	
+clean:
+  $(RM) *.omc $(addsuffixes .cmi .cmo .cmx $(EXT_OBJ),$(FILES))
