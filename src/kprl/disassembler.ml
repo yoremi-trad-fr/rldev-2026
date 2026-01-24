@@ -1554,7 +1554,7 @@ let read_textout_alt cmd lexbuf =
             bprintf b "\\%c{%c%s, %d}" lm c1 c2 index);
           unquot add lexbuf
 
-      (* äGï∂éö *)
+      (* ÁµµÊñáÂ≠ó *)
       | "\x81\x94" '\x82'['\x60'-'\x61'] '\x82'['\x4f'-'\x58'] '\x82'['\x4f'-'\x58']
        -> if add && not options.raw_strings then (
             let l = latin1_lexeme lexbuf in
@@ -1563,7 +1563,7 @@ let read_textout_alt cmd lexbuf =
             bprintf b "\\%s{%d}" code idx);
           unquot add lexbuf
 
-      (* Ultra-special case - sized äGï∂éö, though for simplicity's sake we only detect a subset of sizes *)
+      (* Ultra-special case - sized ÁµµÊñáÂ≠ó, though for simplicity's sake we only detect a subset of sizes *)
       | "#\000\003\101\000\001\000\000(" [^')']+ ")" ('@' _ _)?
         "\x81\x94" '\x82'['\x60'-'\x61'] '\x82'['\x4f'-'\x58'] '\x82'['\x4f'-'\x58']
         "#\000\003\101\000\000\000\001"
@@ -1751,7 +1751,7 @@ let read_textout cmd lexbuf =
           bprintf b "\\%c{%c%s, %d}" lm c1 c2 index;
           unquot lexbuf
 
-      (* äGï∂éö *)
+      (* ÁµµÊñáÂ≠ó *)
       | "\x81\x94" '\x82'['\x60'-'\x61'] '\x82'['\x4f'-'\x58'] '\x82'['\x4f'-'\x58']
        -> let l = latin1_lexeme lexbuf in
           let code = if l.[3] = '\x60' then "e" else "em"
@@ -1759,7 +1759,7 @@ let read_textout cmd lexbuf =
           bprintf b "\\%s{%d}" code idx;
           unquot lexbuf
 
-      (* Ultra-special case - sized äGï∂éö, though for simplicity's sake we only detect a subset of sizes *)
+      (* Ultra-special case - sized ÁµµÊñáÂ≠ó, though for simplicity's sake we only detect a subset of sizes *)
       | "#\000\003\101\000\001\000\000(" [^')']+ ")" ('@' _ _)?
         "\x81\x94" '\x82'['\x60'-'\x61'] '\x82'['\x4f'-'\x58'] '\x82'['\x4f'-'\x58']
         "#\000\003\101\000\000\000\001"
@@ -2754,8 +2754,8 @@ let to_tr_prep a =
 let to_tr_prep a = 
   Array.map
     (fun c ->
-        (*if c = 0x8163 then a.[i] b "ÅE*)
-        if c = 0x8163 then a.[i] b "ÅE"
+        (*if c = 0x8163 then a.[i] b "„Éª*)
+        if c = 0x8163 then a.[i] b "„Éª"
         else if c = 0x8142 then 0x2E (* "." *)
         else if c = 0x8149 then 0x21 (* "!" *)
         else if c = 0x8148 then 0x3F (* b "?" *)
