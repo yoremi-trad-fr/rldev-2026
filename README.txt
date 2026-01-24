@@ -1,5 +1,9 @@
+# rldev-2026
+Updates for rldev kit
 README – rlc 2026.x update
+Yoremi - 24/01/2026
 =========================
+[The problem occurred during the decompilation/recompilation of Clannad: Side Stories (Steam)]
 
 This update fixes multiple issues encountered when compiling and
 decompiling RealLive 1.6.x based games using rlc/kprl, including:
