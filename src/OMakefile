@@ -1,6 +1,6 @@
 #
-#  RLDev: RealLive-compatible development toolkit
-#  Copyright (C) 2004-2006 Haeleth
+#  RLdev documentation
+#  Copyright (C) 2006 Haeleth
 #  Revised 2009-2011 by Richard 23
 #
 #  This program is free software; you can redistribute it and/or modify it under
@@ -18,72 +18,59 @@
 #  Place - Suite 330, Boston, MA  02111-1307, USA.
 #
 
-OCAMLFLAGS = -warn-error Asxyz -cc $(if $(equal $(CXX),gcc),g++,$(CXX))
-USE_OCAMLFIND = true
+PROGRAM = mkfundoc
+FILES = mkfundoc
+GENERATED = mkfundoc.ml
+OCamlGeneratedFiles($(GENERATED))
+OCamlProgram($(PROGRAM), $(FILES))
 
-if $(defined-env DEBUG)
-  echo "Debug mode"
-  NATIVE_ENABLED = false
-  BYTE_ENABLED = true
-  OCAMLFLAGS += -g -custom
-  export
+TEXFILES = manual usage kepago reallive functions gameexe vasnames gpl licenses
+GENERATED += functions.tex gameexe.tex manual.tex
 
-if $(not $(defined-env VERBOSE))
-  OMakeFlags(-S --progress)
-  export
+%.tex: %.fundoc $(PROGRAM)$(EXE)
+  ./$(PROGRAM)$(EXE) < $< > $@
 
-if $(not $(file-exists ../bin))
-  mkdir ../bin
+manual.tex: manual.tex.in $(version_file)
+  rm -f $@
+  section
+    verfile = $(fopen $(version_file),r)
+    verstr = $(nth 3,$(split $(gets $(verfile))))
+    close($(verfile))
+    stdout = $(fopen $@,w)
+    println(%)
+    println(% THIS IS A GENERATED FILE: edit $@.in instead!)
+    println(%)
+    fsubst (manual.tex.in)
+    case $"!!DATE!!"
+      value $(shell date -I)
+    case $"!!VERSION!!"
+      value $(verstr)
+    close($(stdout))
 
-EXEDIR = $(dir ../bin)
+.PHONY: alldoc clean dochtml docpdf
 
-.INCLUDE: config.inc
-  if $(not $(file-exists config.inc))
-    ./configure
+if $(ENABLE_HEVEA)
+  dochtml: $(addsuffix .tex,$(TEXFILES))
+    hevea -fix -moreentities -O -noiso manual
+else
+  dochtml:
+    @echo HTML documentation disabled by configure
 
-OCAMLLEX += -q
+if $(ENABLE_PDFLATEX)
+  docpdf: $(addsuffix .tex,$(TEXFILES))
+    pdflatex manual
+    makeindex manual
+    makeindex manual.cdx -o manual.cnd
+    makeindex manual.fdx -o manual.fnd
+    makeindex manual.gdx -o manual.gnd
+    pdflatex manual
+    pdflatex manual
+else
+  docpdf:
+    @echo PDF documentation disabled by configure
 
-# Generate a description of the parsing tables and a report on conflicts resulting 
-# from ambiguities in the grammar. The description is put in file grammar.output.
-
-OCAMLYACC += -v
-
-.PHONY: all clean distclean
-
-# build libraries
-.SUBDIRS: common
-
-OCAMLINCLUDES += $(dir common)
-INCLUDES += $(dir common)
-OCAML_LIBS = $(file $(addprefix common/,optpp rlcmp rlkfn appconfig))
-OCAML_CLIBS = $(file common/rlprims)
-
-# build programs
-
-OCAMLPACKS = bigarray unix extlib ulex
-
-PROGRAMS = rlc kprl
-if $(ENABLE_VACONV)
-  PROGRAMS += vaconv
-  export
-if $(ENABLE_RLXML)
-  PROGRAMS += rlxml
-  export
-if $(file-exists cvtkpacres)
-  # If you don't use Kpac, you won't miss this utility.  
-  # If you do need to convert Kpac resources, let me know and I'll send you a 
-  # version with CvtKpacRes included.
-  PROGRAMS += cvtkpacres
-  export
-
-version_file = $(file VERSION)
-
-.SUBDIRS: $(PROGRAMS) docsrc
+alldoc: dochtml docpdf
 
 clean:
-  $(RM) *.omc
-
-distclean: clean
-  $(RM) $(add-wrapper $(EXEDIR)/,$(EXE),$(PROGRAMS)) common/config.cfg config.inc
-
-.DEFAULT: all
+  $(RM) *.omc $(GENERATED) $(addsuffixes .cmi .cmo .cmx $(EXT_OBJ),$(FILES)) $(PROGRAM)$(EXE)
+  $(RM) *.aux manual.{html,pdf,cdx,cnd,fdx,fnd,gdx,gnd,haux,hcnd,hind,hfdx,hfnd,hgdx,hgnd,htoc,idx,ilg,ind,log,out,toc}
