@@ -4,10 +4,10 @@ ENABLE_WIN32=true
 ENABLE_HEVEA=false
 ENABLE_PDFLATEX=false
 ENABLE_RLXML=true
-ENABLE_VACONV=false
+ENABLE_VACONV=true
 FORCE_XMLLIGHT=true
-PNG_CFLAGS=
-PNG_LDFLAGS=
+PNG_CFLAGS = -I/usr/include
+PNG_LDFLAGS = -lpng -lz
 
 .PHONY: install uninstall
 install:
