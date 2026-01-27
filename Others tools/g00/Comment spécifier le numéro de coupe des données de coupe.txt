@@ -1,0 +1,39 @@
+
+Il existe deux méthodes pour créer des données de découpe : « Découpe par calque » et « Texte de découpe ».
+Dans les deux cas, l'ordre de découpe correspond à l'ordre des numéros de découpe.
+Par exemple, dans le cas d'une découpe par calque, les calques sont découpés dans l'ordre, de haut en bas, et les numéros de découpe sont donc 0, 1, 2, etc.
+Il s'agit d'une méthode de découpe où les numéros sont 0, 10, 20, etc.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Spécifier le numéro de découpe avec la découpe de calque
+
+    Pour spécifier le numéro de découpe, utilisez la commande de calque #INDEX? .
+    Spécifiez le numéro de découpe à la place de ? .
+
+	(Exemple : #INDEX10)
+
+    Vous ne pouvez spécifier qu'une valeur supérieure au numéro de coupe actuel.
+    Si vous spécifiez une valeur inférieure, une erreur se produira.
+
+    Le nombre maximal de coupes pour les données de coupe est de 10 000.
+    Si vous essayez d'effectuer plus de coupes, une erreur se produira.
+
+    Les coupes dont le numéro est libre deviendront des données de coupe NoData.
+
+	※Cette couche ne sera pas découpée.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Spécifier le numéro de coupe dans le texte découpé
+
+    Pour spécifier le numéro de coupe, utilisez la commande #INDEX ?.
+    Spécifiez le numéro de coupe dans ?.
+
+	(Exemple : #INDEX 10)
+
+    Vous ne pouvez spécifier qu'une valeur supérieure au numéro de découpe actuel.
+    Si vous spécifiez une valeur inférieure, une erreur se produira.
+
+    Le nombre maximal de découpes est de 10 000.
+    Si vous essayez d'effectuer plus de découpes, une erreur se produira.
+
+    Les découpes dont le numéro est vacant deviendront des données de découpe NoData.
