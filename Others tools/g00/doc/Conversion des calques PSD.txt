@@ -1,0 +1,61 @@
+Conversion des calques PSD
+
+Les images PSD de Photoshop sont converties calque par calque, et les images G00 sont enregistrées sous le nom de chaque calque.
+Le traitement est effectué lorsqu'il existe un nom de calque spécifique (commande de calque).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Commande de calque
+
+    ◆ Commande de conversion par calques #CONVERTS
+
+        Créez un calque vide sans image et nommez-le #CONVERTS.
+        ※Ce calque ne sera pas découpé.
+
+        Le nom du calque devient le nom du fichier.
+        ※Il n'est pas nécessaire d'ajouter l'extension [.g00] car elle est ajoutée automatiquement.
+
+	◆ Commande // Commentaire
+
+        Les calques dont le nom commence par // sont ignorés.
+        ※ Ces calques ne sont pas concernés par la découpe.
+
+        Exemple : Fond → //Fond
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Remarque importante
+
+    La fonction permettant de sélectionner les fichiers dont la date de création de G00pack.exe a été mise à jour (bouton « Rechercher à nouveau ») ne peut pas être utilisée.
+    Par conséquent, veuillez gérer vous-même la mise à jour des images PSD qui doivent être converties pour chaque calque.
+
+    ※Si vous donnez au « nom du fichier PSD » le même nom que l'un des « noms de calques convertis »,
+    　le bouton « Rechercher à nouveau » pourra être utilisé.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Liste des noms de fichiers
+
+    Vous pouvez préparer un texte répertoriant les noms de fichiers après conversion et enregistrer le fichier sous ce nom.
+
+    ≪Procédure de création≫
+
+        1. Il s'agit d'un simple fichier texte. Créez un nouveau fichier texte.
+
+		2. Donnez au fichier le même nom que l'image et ajoutez l'extension [.fnl].
+
+            Exemple : si le nom de l'image est BustUp.psd, le nom du fichier dans la liste sera BustUp.fnl.
+
+        3. Dressez la liste. (Pour un exemple, consultez FileNameList sample.fnl)
+
+	≪Caractères pouvant être utilisés dans le nom de fichier≫
+
+        a à z, A à Z, 0 à 9, _, (※Les chiffres ne peuvent pas être utilisés au début du nom de fichier.)
+
+    ≪Symboles de commentaire dans la liste≫
+
+        ;  //  /* ~ */ peuvent être utilisés.
+
+	≪Explication complémentaire≫
+
+        Les noms de liste sont attribués dans l'ordre à partir de la couche supérieure.
+        ※Les couches qui ne sont pas concernées par la conversion, telles que les couches de commentaires, ne se voient pas attribuer de nom.
+
+        Si le nombre de listes est inférieur au nombre de couches, les couches manquantes sont renommées en utilisant leur nom de couche comme nom de fichier.

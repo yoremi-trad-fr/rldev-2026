@@ -1,0 +1,50 @@
+***************************************************************
+ G00Pack.exe
+************* ******************************************************************
+◆Explication
+
+　　Convertit les fichiers PSD, BMP et PNG en fichiers G00.
+
+◆Mode d'emploi
+
+　　1. Glissez-déposez les dossiers dans les champs « Emplacement de stockage des images d'origine » et « Emplacement de stockage G00 ».
+
+　　2. Sélectionnez les images à convertir dans la liste déroulante en bas à gauche.
+　　　　Cliquez sur le bouton « Rechercher à nouveau » pour sélectionner les fichiers mis à jour.
+　　　　Vous pouvez sélectionner ou désélectionner toutes les images en cliquant sur « Tout sélectionner » ou « Tout désélectionner ». 
+
+　　3. Cliquez sur le bouton « Commencer la compression » pour lancer la conversion. 
+
+◆À propos des images masquées BMP
+
+　　Les données comportant un « _ » sont converties en images masquées.
+
+　　　　　Grp000.bmp devient Grp000_.bmp.
+
+　　※Les fichiers PSD utilisent directement les calques, les images masquées ne sont donc pas nécessaires.
+
+◆Remarque supplémentaire concernant les fichiers PSD
+
+　　Le calque à compresser est en principe le calque supérieur.
+
+　　※Toutes les corrections de calque effectuées dans les paramètres de Photoshop sont ignorées (méthodes de fusion, etc.).
+　　※Il est possible de créer une image découpée à l'aide de la commande Calque. (Voir « Calque découpé.txt »)
+
+
+◆À propos des données découpées
+
+　　Voir « Texte découpé.txt » et « Calque découpé.txt »
+
+◆Complément
+
+　　Les images « avec masque » ou « avec texte découpé » ne sont pas compatibles avec 256 couleurs, mais
+　　pendant la conversion, elles peuvent être forcées à revenir en couleur et converties en images couleur.
+　　Bien sûr, les données converties sont des images couleur, mais l'efficacité de la compression n'est pas très différente de celle des 256 couleurs.
+
+　　※Si la conversion en couleurs est effectuée pendant la conversion, un message de confirmation s'affiche dans le journal des erreurs.
+
+　　Remarque importante
+　　　Lors de la réduction à 256 couleurs, selon l'outil utilisé, un effet de diffusion peut apparaître,
+　　　ce qui peut entraîner la perte des parties complètement transparentes (noires) de l'image masquée.
+　　　Il est donc recommandé de traiter les images masquées en couleurs.
+

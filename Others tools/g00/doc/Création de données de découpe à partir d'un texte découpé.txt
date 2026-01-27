@@ -1,0 +1,243 @@
+Création de données de découpe à partir d'un texte extrait
+
+La conversion à l'aide du « texte extrait » est compatible avec les images BMP et PSD.
+Si un fichier portant le même nom mais avec l'extension [.txt] existe, il sera converti en « données de découpe ».
+
+    Exemple) grp000.bmp (grp000.psd) deviendra grp00.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■ Qu'est-ce que le « découpage » ?
+
+    Le « découpage » consiste à découper une image en plusieurs rectangles lors de la conversion.
+    Dans le cas d'une conversion normale, une seule image est créée, mais
+	dans le cas d'une conversion avec découpe, plusieurs données découpées sont créées sous forme de données liées entre elles.
+    Imaginez par exemple que vous découpiez chaque motif de marche d'un petit personnage utilisé dans un jeu de rôle.
+
+    Les « données découpées » sont un format spécialement conçu pour le système d'objets.
+    Les images peuvent être lues sans problème dans l'ancien système de banque, mais il n'y a alors aucun intérêt à les découper.
+
+	≪Remarque importante≫
+        La découpe des calques est effectuée en fonction de la « taille du calque ».
+        ※Si vous souhaitez effectuer une découpe de taille différente, vous devez utiliser la méthode ≪Texte de découpe≫.
+
+    ≪Calque de découpe≫
+        Pour les images PSD, vous pouvez effectuer une découpe à l'aide des calques.
+        La méthode la plus appropriée dépend de la manière dont vous souhaitez traiter l'image.
+		Veuillez également lire le fichier « Création de données de découpe avec les calques de découpe.txt ».
+        ※ Il n'est pas possible d'utiliser à la fois les « calques de découpe » et le « texte de découpe » pour une même image.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Commande de coordonnées centrales
+
+    Il s'agit d'une commande permettant de spécifier le centre de l'image découpée.
+
+    Les coordonnées centrales peuvent être définies dans les données G00.
+    L'utilisation des coordonnées centrales dépend de votre idée.
+    Par exemple, dans un jeu de rôle, les personnages sont affichés par ordre d'importance, ceux dont l'axe Y est le plus grand (les plus bas) étant affichés au premier plan.
+    Dans ce cas, le contrôle de l'axe Y est pris en charge par le système, vous n'avez donc pas à vous en soucier et le contrôle de l'ordre d'affichage fonctionne correctement.
+	Cependant, cela implique une condition : le centre de l'objet doit se trouver au niveau des pieds du personnage.
+Dans ce cas, vous devez définir les coordonnées centrales de manière à ce qu'elles se trouvent au niveau des pieds du personnage.
+
+───────────────────────────────────────────
+#CENTERMOD  Xmod Ymod
+#CENTERMODX Xmod
+#CENTERMODY Ymod
+
+    Configuration du mode central
+
+    Xmod(Ymod) : mode
+
+        0 = centrer sur la coordonnée supérieure (gauche) de la coordonnée de découpe (par défaut)
+        1 = centrer sur la coordonnée inférieure (droite) de la coordonnée de découpe
+
+		2 = Centrer sur les coordonnées intermédiaires (haut et bas, gauche et droite) des coordonnées de découpe
+
+        3 = Centrer sur les coordonnées corrigées de pos à partir du haut (gauche) vers le bas (droite) des coordonnées de découpe (pos est défini dans #CENTERPOS)
+        4 = Centrer sur les coordonnées corrigées de pos à partir du bas (droite) vers le haut (gauche) des coordonnées de découpe (pos est défini dans #CENTERPOS)
+
+		5 = Centrer sur les coordonnées modifiées de pos vers le bas (droite) à partir du centre des coordonnées de découpe (pos est défini dans #CENTERPOS)
+        6 = Centrer sur les coordonnées modifiées de pos vers le haut (gauche) à partir du centre des coordonnées de découpe
+		
+		
+		7 = Centrer sur les coordonnées spécifiées (les coordonnées sont définies par #CENTERPOS)
+
+───────────────────────────────────────────
+#CENTERPOS  Xpos Ypos
+#CENTERPOSX Xpos
+#CENTERPOSY Ypos
+
+	Définition des coordonnées centrales (coordonnées utilisées lorsque le mode central est réglé sur 3, 4, 5, 6 ou 7)
+
+    La valeur par défaut des coordonnées centrales est (0, 0).
+
+    Une fois définis, le « mode central » et les « coordonnées centrales » sont conservés pour les découpes suivantes.
+    Ils peuvent également être modifiés à tout moment pendant la découpe.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Commande de découpe
+
+    Commande permettant de découper une image.
+
+────────────────────────────────────── ─────
+#BOXCUT sx, sy, ex, ey
+
+    Spécifiez le rectangle de découpe par ses coordonnées de départ et d'arrivée.
+
+    #BOXCUT    100,100,  199,199
+
+        Découpe le rectangle dont le point de départ est (100,100) et le point d'arrivée est (199,199).
+
+──── ───────────────────────────────────────
+#RECTCUT x, y, xl, yl
+
+    Spécifiez le rectangle à découper à l'aide des coordonnées du point de départ/de la taille horizontale et verticale.
+
+    #RECTCUT   100,100,  200,200
+
+		Découpe un rectangle dont le point de départ est (100,100) et les dimensions horizontales et verticales sont (200,200)
+
+───────────────────────────────────────────
+#RECTCUT_YOKO x, y, xl, yl, xcnt, ycnt
+
+	Découpe horizontale, continue
+
+    #RECTCUT_YOKO   0,0,  32,32,  10,2
+
+        Découpe à partir du point de départ (0,0) avec une taille horizontale et verticale (32,32) et un nombre de découpages horizontaux et verticaux (10,2)
+        Au total, 20 éléments sont découpés.
+		À utiliser lorsque les données de découpe sont alignées horizontalement.
+
+            Alignement des données
+                ■■■■■■■■■■
+                ■■■■■■■■■■
+
+            Ordre de découpe des données
+                0123456789
+                10111213141516171819
+
+───────────────────────────────────────────
+#RECTCUT_TATE x, y, xl, yl, ycnt, xcnt
+
+    Découpe verticale continue
+
+	#RECTCUT_TATE   0,0,  32,32,  5,2
+
+        Extraction à partir du point de départ (0,0) avec une taille horizontale et verticale (32,32) et un nombre de coupes verticales et horizontales (5,2).
+        Au total, 10 éléments sont extraits.
+        À utiliser lorsque les données extraites sont classées verticalement.
+
+            Classement des données
+                ■■
+				■■
+                ■■
+                ■■
+                ■■
+
+            Ordre de découpe des données
+                05
+                16
+                27
+                38
+                49
+
+		───────────────────────────────────────────
+#KINNTOUCUT_YOKO xcnt, ycnt
+
+    Coupe horizontale, répartition égale, découpe continue
+
+    #KINNTOUCUT_YOKO   5,2
+
+		Découpe en divisions égales selon le nombre de divisions horizontales et verticales (5,2)
+        Au total, 10 découpes sont effectuées.
+        À utiliser lorsque les données de découpe sont alignées horizontalement.
+
+            Alignement des données
+                ■■■■■
+                ■■■■■
+
+            Ordre de découpe des données
+                ０１２３４
+				56789
+
+        *Si la taille de l'image ne peut pas être divisée de manière égale, une erreur se produit.
+
+───────────────────────────────────────────
+#KINNTOUCUT_TATE ycnt, xcnt
+
+    Dans le sens vertical, division égale, découpe continue
+
+	#KINNTOUCUT_TATE   5,2
+
+        Découpe en répartissant la taille de l'image de manière égale en nombre de lignes et de colonnes (5,2)
+        Au total, 10 découpes sont effectuées.
+        À utiliser lorsque les données à découper sont alignées verticalement.
+
+            Ordre des données
+                ■■
+                ■■
+                ■■
+				■■
+                ■■
+
+            Ordre de découpe des données
+                05
+                16
+                27
+                38
+                49
+
+        *Si la taille de l'image ne peut pas être divisée de manière égale, une erreur se produit.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━ ━━━━━━━━━━━━━━━━
+≪Exemple d'utilisation≫
+───────────────────────────────────────────
+
+    Le nombre de commandes définies n'a pas d'importance.
+    Les données sont extraites dans l'ordre indiqué, en commençant par le haut.
+
+		#RECTCUT      0,0,  200,200        // Premier : rectangle (  0,0)-(199,199)
+        #RECTCUT    200,0,  200,200        // Deuxième : rectangle (200,0)-(199,199)
+		#RECTCUT    400,0,  200,200        // Troisième : rectangle (400,0)-(199,199)
+        #RECTCUT    600,0,  200,200        // Quatrième : rectangle (600,0)-(199,199)
+
+	La commande ci-dessous permet d'obtenir le même résultat.
+
+        #RECTCUT_YOKO   0,0,  200,200,  4,1
+
+		
+		
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+≪Remarque importante≫
+───────────────────────────────────────────
+
+	Si vous effectuez deux découpes à partir des mêmes informations de découpe, celles-ci seront traitées comme si elles avaient été correctement découpées, mais
+    en réalité, afin d'éviter tout gaspillage de données, l'image elle-même ne sera pas découpée.
+    Comme il s'agit des mêmes données, le système se réfère aux données découpées précédemment.
+
+	Par conséquent, il n'est pas possible d'effectuer un découpage avec les mêmes informations de découpage en modifiant uniquement les coordonnées centrales.
+    (★ Veuillez ne pas confondre avec le fait qu'il est possible d'effectuer le même découpage si les coordonnées centrales sont identiques.)
+
+    Voici un exemple problématique.
+
+	Avant le deuxième découpage, les coordonnées centrales ont été modifiées, mais elles sont traitées comme les mêmes informations que celles du premier découpage.
+    Si vous souhaitez absolument effectuer le découpage, veuillez préparer deux images identiques sur un seul fichier BMP et les découper séparément.
+    Deux images identiques seront converties en données, ce qui est inutile, mais il n'existe actuellement aucune solution à ce problème.
+
+        ;;Définir le centre aux coordonnées (16, 16) en partant du coin supérieur gauche.
+        #CENTERMOD  3 3
+		#CENTERPOS  16 16
+
+        ;;Découper à partir des coordonnées (0, 0) avec une taille de (212, 212)
+        #RECTCUT   0,0,  212, 212            ;;Première découpe
+
+        ;;Modifier le centre (déplacer le centre vers le coin inférieur droit aux coordonnées (16, 16))
+		#CENTERMOD  4 4
+        #CENTERPOS  16 16
+
+        ;;Découper avec la même taille que la première fois (découper à partir des coordonnées (0, 0) avec une taille de (212, 212))
+        #RECTCUT   0,0,  212, 212            ;;Deuxième fois
+
+		
+		
+		

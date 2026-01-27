@@ -1,0 +1,62 @@
+Layer split conversion of PSD 
+
+Can be converted into each layer of the PSD image Photoshop, G00 image is saved with the name of each layer. 
+It is processed if there layer name of a particular (Layer command). 
+
+„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
+¡ Layer command 
+
+Ÿ #CONVERTS split command conversion 
+
+Make a layer of empty nothing is drawn the picture, please #CONVERTS in the name of the layer. 
+¦ This layer not subject to cut-out. 
+
+Layer name The file name will be as it is. 
+¦ There is no need so stick automatically each tone is [.g00]. 
+
+Ÿ // comment command 
+
+Layers there is // the head of the layer name, I will ignore. 
+¦ This layer not subject to cut-out. 
+
+—á. ‰º’n ¨ //‰º’n
+
+„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
+¡ Notes 
+
+(Re-search button) does not work function to the selected state if it is updated by comparing the date of G00pack.exe. 
+Therefore, at your own management update of the PSD image that must be converted to each layer. 
+
+¦ As long as you have your same name as the one of the "layer name to be converted" and "file name of the PSD image", 
+I can now be used to re-search button. 
+
+„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
+¡ File name list 
+
+You can then prepare a text that lists the file name after conversion, to be saved in the file name. 
+
+áSteps to Createâ 
+
+1. It is just a text file. Please create a new text file. 
+
+2. The same name as the image file name, make sure that [.fnl] the extension of the file. 
+
+In the case of BustUp.psd, the name of the example) image is BustUp.fnl file name of the file name list. 
+
+3. Please list the list. (Example of description, FileNameList .fnl see sample) 
+
+áCharacters can be used in the file nameâ 
+
+a ~ z, A ~ Z, 0 ~ 9, (you can not use the "numbers" at the beginning of the file name ¦.), _ 
+
+áComment symbol in the listâ 
+
+; // / * I is available ~ * /. 
+
+áSupplementary explanationâ 
+
+Name of the list will be assigned in order from the top layer. 
+¦ middle, No name is assigned to the layer that do not, such as comments layer, subject to conversion. 
+
+If the number of the list is less than the number of layers, layer after it is no longer enough, 
+Layer name The file name will be as it is.

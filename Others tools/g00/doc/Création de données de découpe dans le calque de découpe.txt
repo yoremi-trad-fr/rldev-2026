@@ -1,0 +1,77 @@
+Création de données de découpe dans le calque de découpe
+
+Vous pouvez créer des « données de découpe » à l'aide des calques d'une image PSD Photoshop.
+Le traitement est effectué lorsqu'un nom de calque spécifique (commande de calque) est présent.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■ Qu'est-ce que le « découpage » ?
+
+    Le « découpage » consiste à découper une image en plusieurs rectangles lors de la conversion.
+    Dans le cas d'une conversion normale, une seule image est créée, mais
+    dans le cas d'une conversion avec découpage, plusieurs données découpées sont créées et reliées entre elles.
+    Imaginez par exemple le découpage des différents schémas de marche des petits personnages utilisés dans les jeux de rôle.
+    Les
+
+	Les « données découpées » sont un format spécialement conçu pour le système d'objets.
+    Les images peuvent être lues sans problème dans l'ancien système de banque, mais il n'y a alors aucun intérêt à les découper.
+
+    ≪Remarque importante≫
+        Le découpage des calques est effectué en fonction de la « taille du calque ».
+        ※Si vous souhaitez découper des images de tailles différentes, vous devez utiliser la méthode ≪Texte de découpe≫.
+
+	≪Texte de découpe≫
+        Il existe une méthode permettant de découper en spécifiant la taille du rectangle à découper dans le texte.
+        La méthode la plus appropriée dépend de la manière dont vous traitez les images.
+        Veuillez également lire le fichier « Création de données de découpe avec le texte de découpe.txt ».
+        ※ Il n'est pas possible d'utiliser à la fois la « couche de découpe » et le « texte de découpe » pour une même image.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+■Commandes de calque
+
+    ◆ Commande de découpe #CUT
+
+        Créez un calque vide sans image et nommez-le #CUT.
+        ※Ce calque ne sera pas découpé.
+
+		La découpe s'effectue dans l'ordre des calques, en commençant par le calque supérieur.
+
+    ◆ Commande // Commentaire
+
+        Les calques dont le nom commence par // sont ignorés.
+        ※ Ce calque ne peut pas être découpé.
+
+        Exemple : Fond → //Fond
+
+    ◆ Commande #C(x)(y) Spécification du centre
+
+		Créez un calque vide sans dessin et nommez-le #C(x)(y).
+        ※Ce calque ne sera pas découpé.
+
+        Le découpage s'effectue dans l'ordre des calques supérieurs, veuillez donc créer un calque vide avant le calque dont vous souhaitez définir le centre.
+        Une fois le centre défini, il sera appliqué à tous les découpages ultérieurs.
+        Vous pouvez également le modifier à tout moment.
+
+		◆Spécification simplifiée : #C(x)(y)
+
+            ≪ Paramètre (x) ≫
+                0 = Extrémité gauche des coordonnées de découpe
+                1 = Milieu des coordonnées de découpe
+                2 = Extrémité droite des coordonnées de découpe
+
+            ≪ Paramètre (y) ≫
+				 0 = Extrémité supérieure des coordonnées de découpe
+                 1 = Milieu des coordonnées de découpe
+                 2 = Extrémité inférieure des coordonnées de découpe
+
+            ≪Exemple≫
+                #C00 = En haut à gauche (0,0)
+                #C11 = Centre
+				#C22 = Bas droit
+                #C12 = Centre de l'axe X, extrémité inférieure de l'axe Y
+
+        ◆Spécification des coordonnées : #C
+
+            Veuillez dessiner un point d'un pixel sur ce calque (la couleur n'a pas d'importance).
+            Cet emplacement deviendra le centre.
+            ※Si vous dessinez plus de deux points, le premier point trouvé sera considéré comme le centre.
+

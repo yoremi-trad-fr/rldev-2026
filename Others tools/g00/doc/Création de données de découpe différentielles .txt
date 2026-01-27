@@ -1,0 +1,9 @@
+Création de données de découpe différentielles dans le calque de découpe
+
+Les images sont découpées par unité de découpe, comme dans « calque de découpe.txt ».
+La différence réside dans le fait que les données à partir de la deuxième image ne sont découpées qu'en fonction de la différence avec l'image du haut.
+Les images à partir de la deuxième image correspondent à l'image d'origine lorsqu'elles sont affichées avec l'image du haut (image n° 0).
+
+La commande de calque de découpe normale est #CUT,
+mais la commande de calque de découpe différentielle est #EXCUT.
+
