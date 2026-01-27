@@ -58,6 +58,8 @@ definition:
       { set (sprintf "%s.%03d.%s.%s" $1 $2 $3 $4) $6 }
   | IDENT DOTINT DOTIDENT DOTIDENT DOTIDENT Eq parameters 
       { set (sprintf "%s.%03d.%s.%s.%s" $1 $2 $3 $4 $5) $7 }
+	 | IDENT DOTINT DOTINT DOTIDENT DOTINT Eq parameters
+    { set (sprintf "%s.%03d.%03d.%s.%03d" $1 $2 $3 $4 $5) $7 } 
   | IDENT DOTIDENT DOTINT DOTIDENT Eq parameters{set (sprintf "%s.%s.%03d.%s" $1 $2 $3 $4) $6 }
   | IDENT DOTINT DOTIDENT DOTINT Eq parameters { set (sprintf "%s.%03d.%s.%03d" $1 $2 $3 $4) $6 }
   | IDENT DOTINT Dot range DOTIDENT Eq parameters
