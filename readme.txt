@@ -1,4 +1,4 @@
-rlc 2026.2
+rldev 2026.2
 Fix: GAMEEXE.INI parsing error (Tomoyo After – Steam)
     • Fixed a syntax error during GAMEEXE.INI parsing when recompiling Tomoyo After (Steam) with rlc.
     • The error was triggered by UI keys using an extended numeric path format, e.g.
@@ -12,7 +12,7 @@ IDENT .NNN .NNN .TEXT .NNN
 
 
 
-rlc 2026.1
+rldev 2026.1
 =========================
 
 This update fixes multiple issues encountered when compiling and
@@ -113,3 +113,4 @@ Conclusion
 This update restores full toolchain compatibility with modern
 RealLive UI scripts and configuration files, ensuring reliable
 round-trip compilation and decompilation without workarounds.
+
