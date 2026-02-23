@@ -8,11 +8,11 @@
                                    CHANGELOG
 -------------------------------------------------------------------------------
 
-rlc 2026.2
+rldev 2026.2
 Yoremi
 For Tomoyo After-Steam
 
-Fix: GAMEEXE.INI parsing error (Tomoyo After – Steam)
+Fix: GAMEEXE.INI parsing error (Tomoyo After â€“ Steam)
 
 Fixed a syntax error during GAMEEXE.INI parsing when recompiling Tomoyo After (Steam) with rlc.
 
@@ -27,7 +27,7 @@ IDENT .NNN .NNN .TEXT .NNN
 This change mirrors the previous fix made for Clannad Side Stories (Steam) and restores full recompilation compatibility without affecting legacy titles.
 
 
-rlc 2026.1
+rldev 2026.1
 Yoremi
 For Clannad side stories-Steam
 ---------
