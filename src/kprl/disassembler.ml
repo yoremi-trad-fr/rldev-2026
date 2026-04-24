@@ -1316,6 +1316,7 @@ and get_string ?(in_ruby = false) sep_str lexbuf =
   let rec quot =
     lexer
       | eof -> raise End_of_file
+      | "\\\\"" -> Buffer.add_char b '\\\\\\\\"'; quot lexbuf
       | "\\\"" -> Buffer.add_char b '\"'; quot lexbuf (* FIXME: I think this is not actually true. *)
       | '\\' -> Buffer.add_string b "\\\\"; quot lexbuf (* FIXME: Not sure about this one. *)
       | '\'' -> Buffer.add_string b (if sep_str then "\'" else "\\'"); quot lexbuf
