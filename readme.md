@@ -1,13 +1,7 @@
 MAJ 11/05/2026
-This fork will no longer be updated, as I am currently
-porting the fork to Go, a more modern language that is less restrictive and does not require a VM or Cygwin to run.
-Once Rldev2026-Go is up and running (see my repo), I will start adding support for: 
-
--Kud Wafter
--Little Buster
--Little Buster Ex
--Rewrite
--Planetarian
+This fork will no longer be updated
+The successor to this fork is Rldev2026-Go; Go is a much more modern language than OCaml, and the fork features a GUI and extensive compatibility.
+https://github.com/yoremi-trad-fr/rldev2026-go-edition
 
 rldev 2026.2
 =========================
